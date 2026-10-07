@@ -144,6 +144,7 @@ static void OnWriteUserInput(int n)
 
         Console.WriteLine();
 
+        // Use the StringBuilder class to efficiently build the output string with the user input to be used in the WriteInfoMessage method.
         var stringBuilder = new StringBuilder();
 
         var i = 1;
@@ -180,7 +181,7 @@ static void OnWriteThirdWordOfUserInput()
             continue;
         }
 
-        WriteInfoMessage($"The third word is: {words[2].Trim()}");
+        WriteInfoMessage($"The third word is: {words[2].Trim()}"); // Use String.Trim method to remove any leading or trailing whitespace from the third word.
         break;
     }
 }
