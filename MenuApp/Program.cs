@@ -72,7 +72,7 @@ static int ReadCompanySize()
 
     do
     {
-        Console.Write("Please enter the size of the company: ");
+        Console.Write("Please enter the size of the company (minimum 2 people): ");
         companySizeInput = Console.ReadLine();
     }
     while (int.TryParse(companySizeInput, out companySize) == false || companySize < 2);
