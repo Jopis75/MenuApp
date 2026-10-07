@@ -125,7 +125,7 @@ static void OnGetCinemaTicketPriceForCompany()
     }
 
     var companyTicketPrice = company.GetTicketPrice();
-    WriteInfoMessage($"The ticket price for the company is {companyTicketPrice:C}");
+    WriteInfoMessage($"The ticket price for the company of {company.Size} people is {companyTicketPrice:C}");
 }
 
 static void OnWriteUserInput(int n)
