@@ -1,6 +1,5 @@
-﻿
-
-using MenuApp;
+﻿using MenuApp;
+using System.Text;
 
 var quit = false;
 
@@ -20,29 +19,32 @@ while (!quit)
             OnGetCinemaTicketPriceForCompany();
             break;
         case "3":
-            OnEchoUserInput(10);
+            OnWriteUserInput(10);
+            break;
+        case "4":
+            OnWriteThirdWordOfUserInput();
             break;
         default:
             WriteErrorMessage("Invalid choice. Please try again.");
             break;
     }
-
-    Console.WriteLine();
 }
 
 static string ReadMainMenuChoice()
 {
+    Console.WriteLine();
     Console.WriteLine("MAIN MENU");
     Console.WriteLine("---------");
     Console.WriteLine();
-    Console.WriteLine("This is the Main menu. Please enter a choice between '1' and '3'. Enter '0' to quit the application");
+    Console.WriteLine("This is the Main menu. Please enter a choice between '1' and '4'. Enter '0' to quit the application");
     Console.WriteLine();
     Console.WriteLine("1. Get cinema ticket price for person.");
     Console.WriteLine("2. Get cinema ticket price for company.");
-    Console.WriteLine("3. Write user input 10 times.");
+    Console.WriteLine("3. Write the user input 10 times.");
+    Console.WriteLine("4. Write the third word of the user input.");
     Console.WriteLine("0. Quit");
     Console.WriteLine();
-    Console.Write("Please enter your choice: ");
+    Console.Write("Please enter a choice: ");
     var choice = Console.ReadLine();
 
     return choice ?? string.Empty;
@@ -100,15 +102,20 @@ static void WriteInfoMessage(string message)
 
 static void OnGetCinemaTicketPriceForPerson()
 {
+    Console.WriteLine();
     var age = ReadAge("Please enter the age: ");
+
     var person = new Person(age);
-    var ticketPrice = Cinema.GetTicketPrice(person);
+    var ticketPrice = person.GetTicketPrice();
+    
     WriteInfoMessage($"The ticket price for the person is {ticketPrice:C}");
 }
 
 static void OnGetCinemaTicketPriceForCompany()
 {
+    Console.WriteLine();
     var companySize = ReadCompanySize();
+
     var company = new Company(companySize);
 
     for (var i = 1; i <= companySize; i++)
@@ -118,22 +125,62 @@ static void OnGetCinemaTicketPriceForCompany()
     }
 
     var companyTicketPrice = company.GetTicketPrice();
-    WriteInfoMessage($"The ticket price for the company of {companySize} people is {companyTicketPrice:C}");
+    WriteInfoMessage($"The ticket price for the company is {companyTicketPrice:C}");
 }
 
-static void OnEchoUserInput(int n)
+static void OnWriteUserInput(int n)
 {
-    Console.WriteLine();
-    Console.WriteLine($"Please enter a line of text to be written {n} times:");
-    var userInput = Console.ReadLine();
-
-    Console.WriteLine();
-
-    var i = 0;
-    for (; i < n - 1; i++)
+    while (true)
     {
-        Console.Write($"{i + 1}. {userInput}, ");
-    }
+        Console.WriteLine();
+        Console.WriteLine($"Please enter a line of text:");
+        var userInput = Console.ReadLine();
 
-    Console.WriteLine($"{i + 1}. {userInput}");
+        if (string.IsNullOrWhiteSpace(userInput))
+        {
+            WriteErrorMessage("Input cannot be empty. Please try again.");
+            continue;
+        }
+
+        Console.WriteLine();
+
+        var stringBuilder = new StringBuilder();
+
+        var i = 1;
+        for (; i <= n - 1; i++)
+        {
+            stringBuilder.Append($"{i}. {userInput}, ");
+        }
+        stringBuilder.Append($"{i}. {userInput}");
+
+        WriteInfoMessage(stringBuilder.ToString());
+        break;
+    }
+}
+
+static void OnWriteThirdWordOfUserInput()
+{
+    while (true)
+    {
+        Console.WriteLine();
+        Console.WriteLine("Please enter a line of text:");
+        var userInput = Console.ReadLine();
+
+        if (string.IsNullOrWhiteSpace(userInput))
+        {
+            WriteErrorMessage("Input cannot be empty. Please try again.");
+            continue;
+        }
+
+        var words = userInput.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        
+        if (words.Length < 3)
+        {
+            WriteErrorMessage("Input must contain at least three words. Please try again.");
+            continue;
+        }
+
+        WriteInfoMessage($"The third word is: {words[2]}");
+        break;
+    }
 }

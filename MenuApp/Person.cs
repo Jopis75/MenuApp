@@ -23,5 +23,21 @@
         public bool IsYouth => Age < 20;
         
         public bool IsPensioner => Age > 64;
+
+        public decimal GetTicketPrice()
+        {
+            if (IsYouth)
+            {
+                return Cinema.YouthTicketPrice;
+            }
+            else if (IsPensioner)
+            {
+                return Cinema.PensionerTicketPrice;
+            }
+            else
+            {
+                return Cinema.RegularTicketPrice;
+            }
+        }
     }
 }

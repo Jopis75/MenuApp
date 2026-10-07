@@ -2,27 +2,27 @@
 {
     public class Company
     {
-        private readonly List<Person> _people;
+        private readonly List<Person> _persons;
 
         public Company(int companySize)
         {
-            _people = new List<Person>(companySize);
+            _persons = new List<Person>(companySize);
         }
 
-        public int Size => _people.Count;
+        public int Size => _persons.Count;
 
         public void AddPerson(Person person)
         {
-            _people.Add(person);
+            _persons.Add(person);
         }
 
         public decimal GetTicketPrice()
         {
             decimal totalPrice = 0.0M;
 
-            foreach (var person in _people)
+            foreach (var person in _persons)
             {
-                totalPrice += Cinema.GetTicketPrice(person);
+                totalPrice += person.GetTicketPrice();
             }
 
             return totalPrice;
