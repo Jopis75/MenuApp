@@ -5,28 +5,35 @@ var quit = false;
 
 while (!quit)
 {
-    var choice = ReadMainMenuChoice();
-
-    switch (choice)
+    try
     {
-        case "0":
-            quit = true;
-            break;
-        case "1":
-            OnGetCinemaTicketPriceForPerson();
-            break;
-        case "2":
-            OnGetCinemaTicketPriceForCompany();
-            break;
-        case "3":
-            OnWriteUserInput(10);
-            break;
-        case "4":
-            OnWriteThirdWordOfUserInput();
-            break;
-        default:
-            WriteErrorMessage("Invalid choice. Please try again.");
-            break;
+        var choice = ReadMainMenuChoice();
+
+        switch (choice)
+        {
+            case "0":
+                quit = true;
+                break;
+            case "1":
+                OnGetCinemaTicketPriceForPerson();
+                break;
+            case "2":
+                OnGetCinemaTicketPriceForCompany();
+                break;
+            case "3":
+                OnWriteUserInput(10);
+                break;
+            case "4":
+                OnWriteThirdWordOfUserInput();
+                break;
+            default:
+                WriteErrorMessage("Invalid choice. Please try again.");
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        WriteErrorMessage($"An error occurred: {ex.Message}");
     }
 }
 
