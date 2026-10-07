@@ -14,12 +14,13 @@ while (!quit)
             quit = true;
             break;
         case "1":
-            OnGetTicketPriceForPerson();
+            OnGetCinemaTicketPriceForPerson();
             break;
         case "2":
-            OnGetTicketPriceForCompany();
+            OnGetCinemaTicketPriceForCompany();
             break;
         case "3":
+            OnEchoUserInput(10);
             break;
         default:
             WriteErrorMessage("Invalid choice. Please try again.");
@@ -36,9 +37,9 @@ static string ReadMainMenuChoice()
     Console.WriteLine();
     Console.WriteLine("This is the Main menu. Please enter a choice between '1' and '3'. Enter '0' to quit the application");
     Console.WriteLine();
-    Console.WriteLine("1. Get ticket price for person.");
-    Console.WriteLine("2. Get ticket price for company.");
-    Console.WriteLine("3. Option 3");
+    Console.WriteLine("1. Get cinema ticket price for person.");
+    Console.WriteLine("2. Get cinema ticket price for company.");
+    Console.WriteLine("3. Write user input 10 times.");
     Console.WriteLine("0. Quit");
     Console.WriteLine();
     Console.Write("Please enter your choice: ");
@@ -97,15 +98,15 @@ static void WriteInfoMessage(string message)
     Console.WriteLine();
 }
 
-static void OnGetTicketPriceForPerson()
+static void OnGetCinemaTicketPriceForPerson()
 {
     var age = ReadAge("Please enter the age: ");
     var person = new Person(age);
     var ticketPrice = Cinema.GetTicketPrice(person);
-    WriteInfoMessage($"The ticket price for a person aged {age} is {ticketPrice:C}");
+    WriteInfoMessage($"The ticket price for the person is {ticketPrice:C}");
 }
 
-static void OnGetTicketPriceForCompany()
+static void OnGetCinemaTicketPriceForCompany()
 {
     var companySize = ReadCompanySize();
     var company = new Company(companySize);
@@ -118,4 +119,21 @@ static void OnGetTicketPriceForCompany()
 
     var companyTicketPrice = company.GetTicketPrice();
     WriteInfoMessage($"The ticket price for the company of {companySize} people is {companyTicketPrice:C}");
+}
+
+static void OnEchoUserInput(int n)
+{
+    Console.WriteLine();
+    Console.WriteLine($"Please enter a line of text to be written {n} times:");
+    var userInput = Console.ReadLine();
+
+    Console.WriteLine();
+
+    var i = 0;
+    for (; i < n - 1; i++)
+    {
+        Console.Write($"{i + 1}. {userInput}, ");
+    }
+
+    Console.WriteLine($"{i + 1}. {userInput}");
 }
