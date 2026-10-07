@@ -22,17 +22,23 @@
 
         public bool IsYouth => Age < 20;
         
-        public bool IsPensioner => Age > 64;
+        public bool IsSeniorCitizen => Age > 64;
+
+        public bool HasFreeTicket => Age < 5 || Age > 100;
 
         public decimal GetTicketPrice()
         {
-            if (IsYouth)
+            if (HasFreeTicket)
+            {
+                return Cinema.FreeTicketPrice;
+            }
+            else if (IsYouth)
             {
                 return Cinema.YouthTicketPrice;
             }
-            else if (IsPensioner)
+            else if (IsSeniorCitizen)
             {
-                return Cinema.PensionerTicketPrice;
+                return Cinema.SeniorCitizenTicketPrice;
             }
             else
             {
