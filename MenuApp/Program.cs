@@ -180,7 +180,7 @@ static void OnWriteThirdWordOfUserInput()
             continue;
         }
 
-        WriteInfoMessage($"The third word is: {words[2]}");
+        WriteInfoMessage($"The third word is: {words[2].Trim()}");
         break;
     }
 }
